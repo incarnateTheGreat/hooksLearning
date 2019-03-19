@@ -168,8 +168,6 @@ const App = () => {
         <header>{SelectLocaleMemo}</header>
 
         {DetailsMemo}
-
-        <Example01 />
       </div>
     </FormContext.Provider>
   );
