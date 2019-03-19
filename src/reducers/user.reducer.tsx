@@ -1,20 +1,23 @@
-const userReducer = (state, action) => {
-  switch (action) {
+// Interfaces
+import { IUser } from "../interfaces/form.interface";
+
+export const initialState: IUser = {
+  id: 0,
+  name: "",
+  occupation: ""
+};
+
+const UserReducer = (state, action) => {
+  switch (action.type) {
     case "add": {
-      return [
-        ...state,
-        {
-          id: 5,
-          name: "Oliver",
-          occupation: "Miau"
-        }
-      ];
+      return [...state, action.payload];
     }
-    case "delete":
-      return state - 1;
+    case "delete": {
+      return state.filter(user => user.id !== action.payload);
+    }
     default:
       throw new Error("Unexpected action");
   }
 };
 
-export default userReducer;
+export default UserReducer;

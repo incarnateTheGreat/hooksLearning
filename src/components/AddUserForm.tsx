@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import FormContext from "../context/form-context";
 
-const AddUserForm = ({ addUser }) => {
+const AddUserForm = () => {
   const generateKey = () => Math.floor(Math.random() * (10000 - 0 + 1)) + 0;
 
   const initialFormState = {
@@ -32,19 +32,18 @@ const AddUserForm = ({ addUser }) => {
     setUser({ ...user, disabled });
   };
 
-  const handleSubmit = submitUser => event => {
-    event.preventDefault();
-
+  const handleSubmit = submitUser => () => {
     const { name, occupation } = submitUser;
 
     if (!name || !occupation) return;
 
-    addUser(user);
+    dispatch({ type: "add", payload: submitUser });
+
     setUser(initialFormState);
   };
 
   // Testing Context necessity.
-  const { appContext }: any = useContext(FormContext);
+  const { appContext, dispatch }: any = useContext(FormContext);
   const { addNewUser_button, name, occupation } = appContext;
 
   // Check to toggle Add New User Button.
@@ -53,7 +52,7 @@ const AddUserForm = ({ addUser }) => {
   }, [user.name, user.occupation]);
 
   return (
-    <form className="username-form" onSubmit={handleSubmit(user)}>
+    <div className="username-form">
       <div className="username-form_fields">
         <span className="username-form_fields_container">
           <label>{name}</label>
@@ -78,10 +77,11 @@ const AddUserForm = ({ addUser }) => {
         title={addNewUser_button}
         className="username-form_submit"
         disabled={user.disabled}
+        onClick={handleSubmit(user)}
       >
         {addNewUser_button}
       </button>
-    </form>
+    </div>
   );
 };
 

@@ -35,6 +35,7 @@ export interface IUser {
 
 export interface ProviderStoreInterface {
   appContext: object;
+  dispatch: object;
   languages: object;
   testFunc?: () => void;
   usersContext: object[];

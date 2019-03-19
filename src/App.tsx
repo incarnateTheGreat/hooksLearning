@@ -1,5 +1,6 @@
 import React, { useMemo, useReducer, useState } from "react";
 import mainReducer from "./reducers/main.reducer";
+import UserReducer from "./reducers/user.reducer";
 
 // Components
 import Details from "./components/Details";
@@ -87,33 +88,10 @@ const testFunc = locale => () => {
   }
 };
 
-const Example01 = () => {
-  const initialState = 0;
-  const [count, dispatch] = useReducer(mainReducer, initialState);
-
-  return (
-    <div>
-      {count}
-      <button onClick={() => dispatch("increment")}>+1</button>
-      <button onClick={() => dispatch("decrement")}>-1</button>
-      <button onClick={() => dispatch("reset")}>reset</button>
-    </div>
-  );
-};
-
 const App = () => {
   // Setting State
   const [locale, setLocale] = useState("en");
-  const [users, setUsers] = useState(initUserList);
-
-  // CRUD operations
-  const addUserFunc = (user: IUser) => {
-    setUsers([...users, user]);
-  };
-
-  const deleteUserFunc = (id: number) => () => {
-    setUsers(users.filter(user => user.id !== id));
-  };
+  const [users, dispatch] = useReducer(UserReducer, initUserList);
 
   // Memoized Components.
   const SelectLocaleMemo = useMemo(
@@ -121,10 +99,7 @@ const App = () => {
     [locale]
   );
 
-  const DetailsMemo = useMemo(
-    () => <Details addUserFunc={addUserFunc} deleteUserFunc={deleteUserFunc} />,
-    [users]
-  );
+  const DetailsMemo = useMemo(() => <Details />, [users]);
 
   // Get Locales Data
   const {
@@ -157,6 +132,7 @@ const App = () => {
   // If multiple values/functions are being passed into Context, they can be applied to a object.
   const values: ProviderStoreInterface = {
     appContext,
+    dispatch,
     languages,
     testFunc: testFunc(locale),
     usersContext: users

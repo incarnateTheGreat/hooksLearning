@@ -2,17 +2,23 @@ import React, { useContext } from "react";
 import FormContext from "../context/form-context";
 import AddUserForm from "./AddUserForm";
 
-const Details = ({ addUserFunc, deleteUserFunc }) => {
-  // Getting Context
-  const { appContext, usersContext }: any = useContext(FormContext);
+const Details = () => {
+  const { appContext, dispatch, usersContext }: any = useContext(FormContext);
   const { addUser } = appContext;
+
+  const deleteUserFunc = id => () => {
+    dispatch({
+      payload: id,
+      type: "delete"
+    });
+  };
 
   return (
     <div className="details">
       <>
         <>
           <h2>{addUser}</h2>
-          <AddUserForm addUser={addUserFunc} />
+          <AddUserForm />
         </>
         <div className="details_rows">
           {usersContext.length > 0 ? (

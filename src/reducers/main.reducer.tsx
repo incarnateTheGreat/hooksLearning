@@ -1,4 +1,6 @@
 const mainReducer = (state, action) => {
+  console.log(state, action);
+
   switch (action) {
     case "increment":
       return state + 1;
