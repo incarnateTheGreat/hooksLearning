@@ -1,5 +1,4 @@
 import React, { useMemo, useReducer, useState } from "react";
-import mainReducer from "./reducers/main.reducer";
 import UserReducer from "./reducers/user.reducer";
 
 // Components
