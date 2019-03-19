@@ -1,0 +1,55 @@
+button {
+  border-radius: 2px;
+  background-color: $primary-blue;
+  border: 2px solid $primary-blue;
+  border-radius: 2px;
+  color: $white;
+  cursor: pointer;
+  font-size: $font-size-small;
+  font-weight: bold;
+  padding: 8px 12px;
+  transition: background-color 0.1s;
+}
+
+.dropdown {
+  &_menu_container {
+    display: flex;
+    justify-content: space-between;
+
+    &_button {
+      cursor: pointer;
+    }
+  }
+
+  &_contents {
+    background-color: #f1f1f1;
+    display: none;
+    flex-direction: column;
+    margin: 1px 0 0;
+    position: absolute;
+    width: 200px;
+
+    &.--show {
+      display: flex;
+    }
+
+    &_item {
+      cursor: pointer;
+      display: block;
+      font-size: $font-size-small;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: all 0.2s;
+
+      &.--selected {
+        font-weight: bold;
+      }
+
+      &:hover {
+        background-color: $dark-grey;
+        color: $white;
+        font-weight: bold;
+      }
+    }
+  }
+}

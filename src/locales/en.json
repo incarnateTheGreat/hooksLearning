@@ -1,0 +1,12 @@
+{
+  "addUser": "Add User",
+  "addNewUser_button": "Add New User",
+  "email": "Email",
+  "func_button": "Func says hello in console",
+  "language": "Language",
+  "languageToggle_button": "Change Language",
+  "name": "Name",
+  "occupation": "Occupation",
+  "header": "Heading Text",
+  "text": "Hello, and welcome to my Text string"
+}
