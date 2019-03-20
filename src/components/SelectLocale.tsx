@@ -1,19 +1,21 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import FormContext from "../context/form-context";
 
 // Set the Locale.
-const SelectLocale = ({ locale, setLocale }) => {
-  const { appContext, testFunc, languages }: any = useContext(FormContext);
-  const { func_button } = appContext;
+const SelectLocale = () => {
+  const { appContext, locale, setLocale, languages }: any = useContext(
+    FormContext
+  );
   const dropdown: any = useRef(null);
+  const [dropdownToggle, setDropdownToggle] = useState(false);
 
   const ChangeLocale = event => {
     setLocale(event.target.dataset.language);
-    openDropdown();
+    // toggleDropdown();
   };
 
-  const openDropdown = () => {
-    dropdown.current.classList.toggle("--show");
+  const toggleDropdown = () => {
+    setDropdownToggle(dropdown.current.classList.toggle("--show"));
   };
 
   // Handles custom class name additions based on condition.
@@ -26,17 +28,25 @@ const SelectLocale = ({ locale, setLocale }) => {
   // Localizing the Languages Array.
   const languagesArr = Object.keys(languages);
 
+  // Close the Dropdown if clicked anywhere outside of the Dropdown itself.
+  useEffect(() => {
+    document.body.onclick = e => {
+      if (dropdownToggle) {
+        toggleDropdown();
+      }
+    };
+  }, [dropdownToggle]);
+
   return (
     <div className="dropdown">
       <div className="dropdown_menu_container">
         <button
           className="dropdown_menu_container_button"
-          onClick={openDropdown}
+          onClick={toggleDropdown}
           title={appContext.languageToggle_button}
         >
           {appContext.language}
         </button>
-        <button onClick={testFunc}>{func_button}</button>
       </div>
       <div ref={dropdown} className="dropdown_contents">
         {languagesArr.length > 0 &&

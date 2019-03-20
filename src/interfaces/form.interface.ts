@@ -17,14 +17,15 @@ export interface IState {
 export interface AppContextInterface {
   addNewUser_button: string;
   addUser: string;
+  editUser: string;
   email: string;
-  func_button: string;
   header: string;
   language: string;
   languageToggle_button: string;
   name: string;
   occupation: string;
   text: string;
+  toggleMode_button: string;
 }
 
 export interface IUser {
@@ -37,6 +38,9 @@ export interface ProviderStoreInterface {
   appContext: object;
   dispatch: object;
   languages: object;
-  testFunc?: () => void;
+  locale: string;
+  setLocale: object;
+  toggleMode?: string;
+  toggleMode_func?: () => void;
   usersContext: object[];
 }

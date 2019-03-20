@@ -2,6 +2,7 @@ import React, { useMemo, useReducer, useState } from "react";
 import UserReducer from "./reducers/user.reducer";
 
 // Components
+
 import Details from "./components/Details";
 import SelectLocale from "./components/SelectLocale";
 import FormContext from "./context/form-context";
@@ -19,8 +20,6 @@ import {
   IUser,
   ProviderStoreInterface
 } from "./interfaces/form.interface";
-
-// useReducer
 
 // Data
 const initUserList: IUser[] = [
@@ -60,14 +59,15 @@ const getLocaleData = locale => {
   let res: AppContextInterface = {
     addNewUser_button: "",
     addUser: "",
+    editUser: "",
     email: "",
-    func_button: "",
     header: "",
     language: "",
     languageToggle_button: "",
     name: "",
     occupation: "",
-    text: ""
+    text: "",
+    toggleMode_button: ""
   };
 
   if (locale === "en") {
@@ -79,53 +79,48 @@ const getLocaleData = locale => {
   return res;
 };
 
-const testFunc = locale => () => {
-  if (locale === "en") {
-    console.log("hello.");
-  } else {
-    console.log("hola");
-  }
-};
-
 const App = () => {
   // Setting State
   const [locale, setLocale] = useState("en");
+  const [toggleMode, setToggleMode] = useState("add");
   const [users, dispatch] = useReducer(UserReducer, initUserList);
 
-  // Memoized Components.
-  const SelectLocaleMemo = useMemo(
-    () => <SelectLocale locale={locale} setLocale={setLocale} />,
-    [locale]
-  );
+  const toggleMode_func = () => {
+    setToggleMode(toggleMode === "add" ? "edit" : "add");
+  };
 
+  // Memoize-ing Components.
   const DetailsMemo = useMemo(() => <Details />, [users]);
+  const SelectLocaleMemo = useMemo(() => <SelectLocale />, [locale]);
 
   // Get Locales Data
   const {
     addNewUser_button,
     addUser,
+    editUser,
     email,
-    func_button,
     header,
     language,
     languageToggle_button,
     name,
     occupation,
-    text
+    text,
+    toggleMode_button
   } = getLocaleData(locale);
 
   // Assign the Locales variables.
   const appContext: AppContextInterface = {
     addNewUser_button,
     addUser,
+    editUser,
     email,
-    func_button,
     header,
     language,
     languageToggle_button,
     name,
     occupation,
-    text
+    text,
+    toggleMode_button
   };
 
   // If multiple values/functions are being passed into Context, they can be applied to a object.
@@ -133,7 +128,10 @@ const App = () => {
     appContext,
     dispatch,
     languages,
-    testFunc: testFunc(locale),
+    locale,
+    setLocale,
+    toggleMode,
+    toggleMode_func,
     usersContext: users
   };
 
@@ -141,8 +139,10 @@ const App = () => {
     <FormContext.Provider value={values}>
       <div className="app">
         <header>{SelectLocaleMemo}</header>
-
-        {DetailsMemo}
+        <>
+          <h2>{addUser}</h2>
+          {DetailsMemo}
+        </>
       </div>
     </FormContext.Provider>
   );
@@ -188,7 +188,7 @@ export default class App extends Component<{}, IAppState> {
       addNewUser_button: "",
       addUser: "",
       email: "",
-      func_button: "",
+      toggleMode_button: "",
       header: "",
       name: "",
       occupation: "",
@@ -210,7 +210,7 @@ export default class App extends Component<{}, IAppState> {
       addNewUser_button,
       addUser,
       email,
-      func_button,
+      toggleMode_button,
       header,
       name,
       occupation,
@@ -221,7 +221,7 @@ export default class App extends Component<{}, IAppState> {
       addNewUser_button,
       addUser,
       email,
-      func_button,
+      toggleMode_button,
       header,
       name,
       occupation,

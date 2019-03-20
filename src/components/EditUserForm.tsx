@@ -1,12 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import FormContext from "../context/form-context";
 
-const AddUserForm = () => {
-  const generateKey = () => Math.floor(Math.random() * (10000 - 0 + 1)) + 0;
-
+const EditUserForm = props => {
   const initialFormState = {
-    disabled: true,
-    id: generateKey(),
+    id: null,
     name: "",
     occupation: ""
   };
@@ -18,38 +15,34 @@ const AddUserForm = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const toggleSubmitButton = nameObj => {
-    const { name, occupation } = nameObj;
-    let { disabled } = nameObj;
+  const updateUserFunc = () => {
+    dispatch({
+      payload: user,
+      type: "update"
+    });
 
-    if (name === "" || occupation === "") {
-      disabled = true;
-    } else if (name !== "" && occupation !== "") {
-      disabled = false;
-    }
-
-    // return disabled;
-    setUser({ ...user, disabled });
+    toggleMode_func();
   };
 
-  const handleSubmit = submitUser => () => {
-    const { name, occupation } = submitUser;
+  const deleteUserFunc = () => {
+    dispatch({
+      payload: user.id,
+      type: "delete"
+    });
 
-    if (!name || !occupation) return;
-
-    dispatch({ type: "add", payload: submitUser });
-
-    setUser(initialFormState);
+    toggleMode_func();
   };
 
   // Testing Context necessity.
-  const { appContext, dispatch }: any = useContext(FormContext);
-  const { addNewUser_button, name, occupation } = appContext;
+  const { appContext, dispatch, toggleMode_func }: any = useContext(
+    FormContext
+  );
+  const { name, occupation } = appContext;
 
   // Check to toggle Add New User Button.
   useEffect(() => {
-    toggleSubmitButton(user);
-  }, [user.name, user.occupation]);
+    setUser({ id: props.id, name: props.name, occupation: props.occupation });
+  }, []);
 
   return (
     <div className="username-form">
@@ -75,16 +68,20 @@ const AddUserForm = () => {
       </div>
       <div className="username-form_buttons">
         <button
-          title={addNewUser_button}
-          className="username-form_buttons_submit"
-          disabled={user.disabled}
-          onClick={handleSubmit(user)}
+          className="username-form_buttons_update"
+          onClick={updateUserFunc}
         >
-          {addNewUser_button}
+          Update
+        </button>
+        <button
+          className="username-form_buttons_delete"
+          onClick={deleteUserFunc}
+        >
+          Delete
         </button>
       </div>
     </div>
   );
 };
 
-export default AddUserForm;
+export default EditUserForm;

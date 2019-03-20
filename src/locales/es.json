@@ -2,11 +2,12 @@
   "addUser": "Agregar usuarior",
   "addNewUser_button": "Añadir nuevo usuario",
   "email": "Email",
-  "func_button": "Func dice hola en console",
+  "editUser": "Editar Usuario",
   "language": "Idioma",
   "languageToggle_button": "Cambiar idioma",
   "name": "Nombre",
   "occupation": "Ocupación",
   "header": "Texto del titulo",
-  "text": "Hola, y bienvenidos a mi texto"
+  "text": "Hola, y bienvenidos a mi texto",
+  "toggleMode_button": "Modo de cambio"
 }

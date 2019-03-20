@@ -15,6 +15,12 @@ const UserReducer = (state, action) => {
     case "delete": {
       return state.filter(user => user.id !== action.payload);
     }
+    case "update": {
+      const index = state.findIndex(x => x.id === action.payload.id);
+      state[index] = action.payload;
+
+      return state;
+    }
     default:
       throw new Error("Unexpected action");
   }
