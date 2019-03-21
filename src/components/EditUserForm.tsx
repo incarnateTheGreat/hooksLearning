@@ -39,7 +39,7 @@ const EditUserForm = props => {
   );
   const { name, occupation } = appContext;
 
-  // Check to toggle Add New User Button.
+  // Check to toggle Edit User Button.
   useEffect(() => {
     setUser({ id: props.id, name: props.name, occupation: props.occupation });
   }, []);
