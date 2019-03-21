@@ -6,14 +6,15 @@ const SelectLocale = () => {
   const { appContext, locale, setLocale, languages }: any = useContext(
     FormContext
   );
+  const { language, languageToggle_button } = appContext;
   const dropdown: any = useRef(null);
   const [dropdownToggle, setDropdownToggle] = useState(false);
 
   const ChangeLocale = event => {
     setLocale(event.target.dataset.language);
-    // toggleDropdown();
   };
 
+  // Toggle the Dropdown natively.
   const toggleDropdown = () => {
     setDropdownToggle(dropdown.current.classList.toggle("--show"));
   };
@@ -30,8 +31,14 @@ const SelectLocale = () => {
 
   // Close the Dropdown if clicked anywhere outside of the Dropdown itself.
   useEffect(() => {
+    // Close the Dropdown when the user clicks anywhere but the Dropdown button.
     document.body.onclick = e => {
-      if (dropdownToggle) {
+      const target = e.target as HTMLTextAreaElement;
+
+      if (
+        dropdownToggle &&
+        !target.classList.contains("dropdown_menu_container_button")
+      ) {
         toggleDropdown();
       }
     };
@@ -43,9 +50,9 @@ const SelectLocale = () => {
         <button
           className="dropdown_menu_container_button"
           onClick={toggleDropdown}
-          title={appContext.languageToggle_button}
+          title={languageToggle_button}
         >
-          {appContext.language}
+          {language}
         </button>
       </div>
       <div ref={dropdown} className="dropdown_contents">
