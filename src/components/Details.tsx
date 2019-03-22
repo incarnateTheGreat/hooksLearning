@@ -57,6 +57,8 @@ const Details = () => {
     toggleMode_func();
   };
 
+  console.log("details.");
+
   return (
     <div className="details">
       <>{toggleMode === "add" ? <AddUser /> : <EditUser />}</>

@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import FormContext from "../context/form-context";
 
-// Set the Locale.
-const SelectLocale = () => {
-  const { appContext, locale, setLocale, languages }: any = useContext(
-    FormContext
-  );
-  const { language, languageToggle_button } = appContext;
+// Set the View.
+const SelectView = () => {
+  const { appContext, view, setView, views }: any = useContext(FormContext);
+  const { displayView, displayViewToggle_button } = appContext;
   const dropdown: any = useRef(null);
   const [dropdownToggle, setDropdownToggle] = useState(false);
 
-  const ChangeLocale = event => {
-    setLocale(event.target.dataset.language);
+  const ChangeView = event => {
+    setView(event.target.dataset.displayView);
   };
 
   // Toggle the Dropdown natively.
@@ -21,13 +19,13 @@ const SelectLocale = () => {
 
   // Handles custom class name additions based on condition.
   const classNames = key => {
-    return ["dropdown_contents_item", key === locale ? "--selected" : ""].join(
+    return ["dropdown_contents_item", key === view ? "--selected" : ""].join(
       " "
     );
   };
 
-  // Localizing the Languages Array.
-  const languagesArr = Object.keys(languages);
+  // Localizing the Views Array.
+  const viewsArr = Object.keys(views);
 
   // Close the Dropdown if clicked anywhere outside of the Dropdown itself.
   useEffect(() => {
@@ -44,29 +42,29 @@ const SelectLocale = () => {
     };
   }, [dropdownToggle]);
 
-  console.log("select locale");
+  console.log("select view.");
 
   return (
     <div className="dropdown">
-      <div className="dropdown_menu_container">
+      <div className="dropdown_menu_container dropdown_menu_container--right">
         <button
           className="dropdown_menu_container_button"
           onClick={toggleDropdown}
-          title={languageToggle_button}
+          title={displayViewToggle_button}
         >
-          {language}
+          {displayView}
         </button>
       </div>
       <div ref={dropdown} className="dropdown_contents">
-        {languagesArr.length > 0 &&
-          languagesArr.map(key => (
+        {viewsArr.length > 0 &&
+          viewsArr.map(key => (
             <span
               className={classNames(key)}
-              data-language={key}
+              data-display-view={key}
               key={key}
-              onClick={ChangeLocale}
+              onClick={ChangeView}
             >
-              {languages[key]}
+              {views[key]}
             </span>
           ))}
       </div>
@@ -74,4 +72,4 @@ const SelectLocale = () => {
   );
 };
 
-export default SelectLocale;
+export default SelectView;

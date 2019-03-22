@@ -1,0 +1,37 @@
+.username-form {
+  &_fields {
+    display: flex;
+    justify-content: space-between;
+
+    label {
+      margin: 0 10px 0 0;
+    }
+  }
+
+  &_buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+
+    &_submit {
+      margin: 10px 0;
+      width: 100%;
+
+      &:disabled,
+      &:hover:disabled {
+        background-color: grey;
+        border: 0;
+        cursor: default;
+      }
+
+      &:hover:enabled {
+        background-color: $white;
+        color: $black;
+      }
+    }
+
+    &_delete {
+      background-color: $red;
+    }
+  }
+}

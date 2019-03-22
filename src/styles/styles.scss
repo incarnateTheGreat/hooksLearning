@@ -1,5 +1,10 @@
-@import "./variables";
-@import "./html-components.scss";
+@import "./_variables";
+@import "./html-components";
+
+// Components
+@import "./components/Details";
+@import "./components/Posts";
+@import "./components/UserForm";
 
 .app {
   background: #e8e8e8;
@@ -10,120 +15,23 @@
 
   header {
     margin: 0 0 20px;
-  }
 
-  .username-form {
-    &_fields {
+    nav {
       display: flex;
       justify-content: space-between;
-
-      label {
-        margin: 0 10px 0 0;
-      }
-    }
-
-    &_buttons {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-
-      &_submit {
-        margin: 10px 0;
-        width: 100%;
-
-        &:disabled,
-        &:hover:disabled {
-          background-color: grey;
-          border: 0;
-          cursor: default;
-        }
-
-        &:hover:enabled {
-          background-color: $white;
-          color: $black;
-        }
-      }
-
-      &_delete {
-        background-color: $red;
-      }
     }
   }
 
-  .details {
-    h2 {
-      margin: 0 0 20px;
-    }
-
-    &_rows {
-      margin: 10px 0;
-
-      &_row {
-        background: #fff;
-        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
-        cursor: pointer;
-        padding: 3px 10px;
-        font-size: 12px;
-        margin-bottom: 6px;
-        border-radius: 3px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        &:hover {
-          background-color: $dark-grey;
-        }
-
-        &_name {
-          flex-basis: 20%;
-          flex-grow: 1;
-        }
-
-        &_occupation {
-          flex-basis: 50%;
-          flex-grow: 1;
-        }
-
-        &_deleteUser {
-          cursor: pointer;
-          padding: 2px 5px;
-
-          &:hover {
-            background-color: $primary-blue;
-            color: $white;
-            font-weight: bold;
-          }
-        }
-      }
-    }
+  .loader {
+    font-weight: bold;
+    left: 50%;
+    position: absolute;
+    top: 50%;
   }
 }
 
 @media only screen and (max-width: 680px) {
   .app {
     margin: 0;
-  }
-}
-
-@media only screen and (max-width: 470px) {
-  .app {
-    .details {
-      .username-form {
-        &_fields {
-          flex-direction: column;
-
-          &_container {
-            display: flex;
-            margin: 0 0 6px;
-            justify-content: space-between;
-            width: 100%;
-
-            input[type="text"] {
-              width: 50%;
-            }
-          }
-        }
-      }
-    }
   }
 }

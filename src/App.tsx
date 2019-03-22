@@ -1,10 +1,16 @@
-import React, { useMemo, useReducer, useState } from "react";
+import axios from "axios";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
+
+// Reducers
 import UserReducer from "./reducers/user.reducer";
 
 // Components
-
 import Details from "./components/Details";
+import Posts from "./components/Posts";
 import SelectLocale from "./components/SelectLocale";
+import SelectView from "./components/SelectView";
+
+// Context
 import FormContext from "./context/form-context";
 
 // Styles
@@ -55,10 +61,17 @@ const languages: object = {
   es: "Español"
 };
 
+const views: object = {
+  posts: "Posts",
+  users: "Users"
+};
+
 const getLocaleData = locale => {
   let res: AppContextInterface = {
     addNewUser_button: "",
     addUser: "",
+    displayView: "",
+    displayViewToggle_button: "",
     editUser: "",
     email: "",
     header: "",
@@ -66,6 +79,7 @@ const getLocaleData = locale => {
     languageToggle_button: "",
     name: "",
     occupation: "",
+    posts_error: "",
     text: "",
     toggleMode_button: ""
   };
@@ -82,21 +96,80 @@ const getLocaleData = locale => {
 const App = () => {
   // Setting State
   const [locale, setLocale] = useState("en");
+  const [view, setView] = useState("users");
   const [toggleMode, setToggleMode] = useState("add");
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [users, dispatch] = useReducer(UserReducer, initUserList);
 
   const toggleMode_func = () => {
     setToggleMode(toggleMode === "add" ? "edit" : "add");
   };
 
+  useEffect(() => {
+    async function getPostsData() {
+      const instance = axios.create();
+      instance.defaults.timeout = 2500;
+
+      setIsLoading(true);
+
+      await instance
+        .get("https://jsonplaceholder.typicode.com/posts")
+        .then(data => {
+          console.log(data);
+
+          // setPosts(data);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          setIsLoading(false);
+          console.log(error);
+        });
+    }
+
+    getPostsData();
+  }, []);
+
+  const RenderPage = () => {
+    console.log("render.");
+
+    return (
+      <>
+        <header>
+          <nav>
+            {SelectLocaleMemo} {SelectViewMemo}
+          </nav>
+        </header>
+        {view === "users" ? (
+          <>
+            <h2>{addUser}</h2>
+            {DetailsMemo}
+          </>
+        ) : (
+          view === "posts" && (
+            <>
+              <h2>Posts</h2>
+              {PostsMemo}
+            </>
+          )
+        )}
+      </>
+    );
+  };
+
   // Memoize-ing Components.
   const DetailsMemo = useMemo(() => <Details />, [users]);
+  const PostsMemo = useMemo(() => <Posts />, [posts]);
   const SelectLocaleMemo = useMemo(() => <SelectLocale />, [locale]);
+  const SelectViewMemo = useMemo(() => <SelectView />, [view]);
+  // const RenderPageMemo = useMemo(() => <RenderPage />, [users, posts]);
 
   // Get Locales Data
   const {
     addNewUser_button,
     addUser,
+    displayView,
+    displayViewToggle_button,
     editUser,
     email,
     header,
@@ -104,6 +177,7 @@ const App = () => {
     languageToggle_button,
     name,
     occupation,
+    posts_error,
     text,
     toggleMode_button
   } = getLocaleData(locale);
@@ -112,6 +186,8 @@ const App = () => {
   const appContext: AppContextInterface = {
     addNewUser_button,
     addUser,
+    displayView,
+    displayViewToggle_button,
     editUser,
     email,
     header,
@@ -119,6 +195,7 @@ const App = () => {
     languageToggle_button,
     name,
     occupation,
+    posts_error,
     text,
     toggleMode_button
   };
@@ -129,20 +206,26 @@ const App = () => {
     dispatch,
     languages,
     locale,
+    posts,
     setLocale,
+    setView,
     toggleMode,
     toggleMode_func,
-    usersContext: users
+    usersContext: users,
+    view,
+    views
   };
 
   return (
     <FormContext.Provider value={values}>
       <div className="app">
-        <header>{SelectLocaleMemo}</header>
-        <>
-          <h2>{addUser}</h2>
-          {DetailsMemo}
-        </>
+        {isLoading ? (
+          <div className="loader">Loading...</div>
+        ) : (
+          <>
+            <RenderPage />
+          </>
+        )}
       </div>
     </FormContext.Provider>
   );

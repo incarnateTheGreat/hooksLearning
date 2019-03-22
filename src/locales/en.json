@@ -1,6 +1,8 @@
 {
   "addUser": "Add User",
   "addNewUser_button": "Add New User",
+  "displayView": "View",
+  "displayViewToggle_button": "Change View",
   "email": "Email",
   "editUser": "Edit User",
   "language": "Language",
@@ -8,6 +10,7 @@
   "name": "Name",
   "occupation": "Occupation",
   "header": "Heading Text",
+  "posts_error": "Sorry. We cannot render Posts at this time",
   "text": "Hello, and welcome to my Text string",
   "toggleMode_button": "Toggle Mode"
 }

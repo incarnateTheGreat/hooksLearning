@@ -1,10 +1,3 @@
-import { Interface } from "readline";
-
-export interface IProps {
-  text: string;
-  age?: number;
-}
-
 export interface IAppState {
   locale: string;
 }
@@ -17,6 +10,8 @@ export interface IState {
 export interface AppContextInterface {
   addNewUser_button: string;
   addUser: string;
+  displayView: string;
+  displayViewToggle_button: string;
   editUser: string;
   email: string;
   header: string;
@@ -24,6 +19,7 @@ export interface AppContextInterface {
   languageToggle_button: string;
   name: string;
   occupation: string;
+  posts_error: string;
   text: string;
   toggleMode_button: string;
 }
@@ -39,8 +35,12 @@ export interface ProviderStoreInterface {
   dispatch: object;
   languages: object;
   locale: string;
+  posts: object | [];
   setLocale: object;
+  setView: object;
   toggleMode?: string;
   toggleMode_func?: () => void;
   usersContext: object[];
+  view: string;
+  views: object;
 }

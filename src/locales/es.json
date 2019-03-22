@@ -1,6 +1,8 @@
 {
   "addUser": "Agregar usuarior",
   "addNewUser_button": "Añadir nuevo usuario",
+  "displayView": "Vista",
+  "displayViewToggle_button": "Cambiar vista",
   "email": "Email",
   "editUser": "Editar Usuario",
   "language": "Idioma",
@@ -8,6 +10,7 @@
   "name": "Nombre",
   "occupation": "Ocupación",
   "header": "Texto del titulo",
+  "posts_error": "Sorry. We cannot render Posts at this time",
   "text": "Hola, y bienvenidos a mi texto",
   "toggleMode_button": "Modo de cambio"
 }

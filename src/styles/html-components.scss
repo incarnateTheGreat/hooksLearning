@@ -1,7 +1,6 @@
 button {
   border-radius: 2px;
   background-color: $primary-blue;
-  // border: 2px solid $primary-blue;
   border-radius: 2px;
   color: $white;
   cursor: pointer;
@@ -12,9 +11,15 @@ button {
 }
 
 .dropdown {
+  width: 200px;
+
   &_menu_container {
     display: flex;
     justify-content: space-between;
+
+    &--right {
+      justify-content: flex-end;
+    }
 
     &_button {
       cursor: pointer;
@@ -27,7 +32,7 @@ button {
     flex-direction: column;
     margin: 1px 0 0;
     position: absolute;
-    width: 200px;
+    width: inherit;
 
     &.--show {
       display: flex;
