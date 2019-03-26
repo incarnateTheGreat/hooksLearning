@@ -42,8 +42,6 @@ const SelectView = () => {
     };
   }, [dropdownToggle]);
 
-  console.log("select view.");
-
   return (
     <div className="dropdown">
       <div className="dropdown_menu_container dropdown_menu_container--right">

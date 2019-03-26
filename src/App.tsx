@@ -6,9 +6,8 @@ import UserReducer from "./reducers/user.reducer";
 
 // Components
 import Details from "./components/Details";
+import Dropdown from "./components/Dropdown";
 import Posts from "./components/Posts";
-import SelectLocale from "./components/SelectLocale";
-import SelectView from "./components/SelectView";
 
 // Context
 import FormContext from "./context/form-context";
@@ -23,48 +22,11 @@ import es from "./locales/es.json";
 // Interfaces
 import {
   AppContextInterface,
-  IUser,
   ProviderStoreInterface
 } from "./interfaces/form.interface";
 
 // Data
-const initUserList: IUser[] = [
-  {
-    id: 1,
-    name: "Garry",
-    occupation: "Software Engineer"
-  },
-  {
-    id: 2,
-    name: "Isabel",
-    occupation: "Everything Person"
-  },
-  {
-    id: 3,
-    name: "John",
-    occupation: "Salesman"
-  },
-  {
-    id: 4,
-    name: "Efi",
-    occupation: "Insurance"
-  },
-  {
-    id: 5,
-    name: "Oliver",
-    occupation: "Miau"
-  }
-];
-
-const languages: object = {
-  en: "English",
-  es: "Español"
-};
-
-const views: object = {
-  posts: "Posts",
-  users: "Users"
-};
+import { initUserList, languages, views } from "./data/data";
 
 const getLocaleData = locale => {
   let res: AppContextInterface = {
@@ -116,14 +78,11 @@ const App = () => {
       await instance
         .get("https://jsonplaceholder.typicode.com/posts")
         .then(data => {
-          console.log(data);
-
-          // setPosts(data);
+          setPosts(data.data);
           setIsLoading(false);
         })
         .catch(error => {
           setIsLoading(false);
-          console.log(error);
         });
     }
 
@@ -156,13 +115,6 @@ const App = () => {
       </>
     );
   };
-
-  // Memoize-ing Components.
-  const DetailsMemo = useMemo(() => <Details />, [users]);
-  const PostsMemo = useMemo(() => <Posts />, [posts]);
-  const SelectLocaleMemo = useMemo(() => <SelectLocale />, [locale]);
-  const SelectViewMemo = useMemo(() => <SelectView />, [view]);
-  // const RenderPageMemo = useMemo(() => <RenderPage />, [users, posts]);
 
   // Get Locales Data
   const {
@@ -204,10 +156,7 @@ const App = () => {
   const values: ProviderStoreInterface = {
     appContext,
     dispatch,
-    languages,
-    locale,
     posts,
-    setLocale,
     setView,
     toggleMode,
     toggleMode_func,
@@ -215,6 +164,37 @@ const App = () => {
     view,
     views
   };
+
+  // Memoize-ing Components.
+  const DetailsMemo = useMemo(() => <Details />, [users]);
+  const PostsMemo = useMemo(() => <Posts />, [posts]);
+  const SelectLocaleMemo = useMemo(
+    () => (
+      <Dropdown
+        buttonDisplayText={languageToggle_button}
+        displayText={language}
+        dropdownValues={languages}
+        dropdownValue={locale}
+        setDropdownValue={setLocale}
+      />
+    ),
+    [locale]
+  );
+
+  const SelectViewMemo = useMemo(
+    () => (
+      <Dropdown
+        alignment="right"
+        buttonDisplayText={displayViewToggle_button}
+        displayText={displayView}
+        dropdownValues={views}
+        dropdownValue={view}
+        setDropdownValue={setView}
+      />
+    ),
+    [locale, view]
+  );
+  // const RenderPageMemo = useMemo(() => <RenderPage />, [users, posts]);
 
   return (
     <FormContext.Provider value={values}>

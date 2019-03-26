@@ -30,13 +30,21 @@ export interface IUser {
   occupation: string;
 }
 
+export interface IDropdown {
+  alignment?: string;
+  buttonDisplayText: string;
+  displayText: string;
+  dropdownValue: string;
+  dropdownValues: object;
+  setDropdownValue: (e) => {};
+}
+
 export interface ProviderStoreInterface {
   appContext: object;
   dispatch: object;
-  languages: object;
-  locale: string;
+
   posts: object | [];
-  setLocale: object;
+
   setView: object;
   toggleMode?: string;
   toggleMode_func?: () => void;
