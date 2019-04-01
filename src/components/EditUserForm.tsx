@@ -52,7 +52,7 @@ const EditUserForm = props => {
           <input
             type="text"
             name="name"
-            value={user.name}
+            value={user.name || ""}
             onChange={handleInputChange}
           />
         </span>
@@ -61,7 +61,7 @@ const EditUserForm = props => {
           <input
             type="text"
             name="occupation"
-            value={user.occupation}
+            value={user.occupation || ""}
             onChange={handleInputChange}
           />
         </span>

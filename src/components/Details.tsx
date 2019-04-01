@@ -4,9 +4,7 @@ import EditUserForm from "../components/EditUserForm";
 import FormContext from "../context/form-context";
 
 const Details = () => {
-  const { toggleMode, toggleMode_func, usersContext }: any = useContext(
-    FormContext
-  );
+  const { usersContext }: any = useContext(FormContext);
   const [editUser, setEditUser] = useState<number | null>(null);
 
   // Memoized Components.
@@ -51,17 +49,17 @@ const Details = () => {
   };
 
   const editUserFunc = event => {
-    const id = parseInt(event.currentTarget.dataset.id, 10);
+    // Handle the ID by either getting the click event's dataset ID, or return null if no number is returned.
+    // The latter will occur on the "Go Back" click event.
+    const id = parseInt(event.currentTarget.dataset.id, 10) || null;
 
     setEditUser(id);
-    toggleMode_func();
   };
 
-  console.log("details.");
-
+  // Show Edit User Mode if the Edit User has been found and set. Otherwise, display the Add Form.
   return (
     <div className="details">
-      <>{toggleMode === "add" ? <AddUser /> : <EditUser />}</>
+      <>{editUser === null ? <AddUser /> : <EditUser />}</>
     </div>
   );
 };

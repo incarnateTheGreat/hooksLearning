@@ -42,12 +42,10 @@ export interface IDropdown {
 export interface ProviderStoreInterface {
   appContext: object;
   dispatch: object;
-
   posts: object | [];
-
   setView: object;
-  toggleMode?: string;
-  toggleMode_func?: () => void;
+  // toggleMode?: string;
+  // toggleMode_func?: () => void;
   usersContext: object[];
   view: string;
   views: object;

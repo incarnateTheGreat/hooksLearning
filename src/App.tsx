@@ -59,14 +59,14 @@ const App = () => {
   // Setting State
   const [locale, setLocale] = useState("en");
   const [view, setView] = useState("users");
-  const [toggleMode, setToggleMode] = useState("add");
+  // const [toggleMode, setToggleMode] = useState("add");
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [users, dispatch] = useReducer(UserReducer, initUserList);
 
-  const toggleMode_func = () => {
-    setToggleMode(toggleMode === "add" ? "edit" : "add");
-  };
+  // const toggleMode_func = () => {
+  //   setToggleMode(toggleMode === "add" ? "edit" : "add");
+  // };
 
   useEffect(() => {
     async function getPostsData() {
@@ -90,8 +90,6 @@ const App = () => {
   }, []);
 
   const RenderPage = () => {
-    console.log("render.");
-
     return (
       <>
         <header>
@@ -158,8 +156,8 @@ const App = () => {
     dispatch,
     posts,
     setView,
-    toggleMode,
-    toggleMode_func,
+    // toggleMode,
+    // toggleMode_func,
     usersContext: users,
     view,
     views
