@@ -58,16 +58,12 @@ const getLocaleData = locale => {
 const App = () => {
   // Setting State
   const [locale, setLocale] = useState("en");
-  const [view, setView] = useState("users");
-  // const [toggleMode, setToggleMode] = useState("add");
+  const [view, setView] = useState("posts");
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [users, dispatch] = useReducer(UserReducer, initUserList);
 
-  // const toggleMode_func = () => {
-  //   setToggleMode(toggleMode === "add" ? "edit" : "add");
-  // };
-
+  // Get Posts Data
   useEffect(() => {
     async function getPostsData() {
       const instance = axios.create();
@@ -156,8 +152,6 @@ const App = () => {
     dispatch,
     posts,
     setView,
-    // toggleMode,
-    // toggleMode_func,
     usersContext: users,
     view,
     views
@@ -192,7 +186,6 @@ const App = () => {
     ),
     [locale, view]
   );
-  // const RenderPageMemo = useMemo(() => <RenderPage />, [users, posts]);
 
   return (
     <FormContext.Provider value={values}>
