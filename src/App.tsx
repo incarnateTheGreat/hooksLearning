@@ -1,5 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
+import { RotateLoader } from "react-spinners";
+
+// Add router
 
 // Reducers
 import UserReducer from "./reducers/user.reducer";
@@ -58,9 +61,9 @@ const getLocaleData = locale => {
 const App = () => {
   // Setting State
   const [locale, setLocale] = useState("en");
-  const [view, setView] = useState("posts");
+  const [view, setView] = useState("users");
   const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [users, dispatch] = useReducer(UserReducer, initUserList);
 
   // Get Posts Data
@@ -191,7 +194,9 @@ const App = () => {
     <FormContext.Provider value={values}>
       <div className="app">
         {isLoading ? (
-          <div className="loader">Loading...</div>
+          <div className="loader">
+            <RotateLoader color={"#123abc"} loading={true} />
+          </div>
         ) : (
           <>
             <RenderPage />

@@ -26,8 +26,8 @@ body {
   }
 
   .loader {
-    font-weight: bold;
-    left: 50%;
+    align-self: center;
+    display: flex;
     position: absolute;
     top: 50%;
   }

@@ -16,7 +16,7 @@ const Posts = () => {
   const { posts }: any = useContext(FormContext);
   const [comments, setComments] = useState<Comments[]>([]);
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
-  const [isLoadingComments, setIsLoadingComments] = useState(false);
+  const [isLoadingComments, setIsLoadingComments] = useState(true);
 
   const DisplayPost = post => {
     const { body, title } = post;
@@ -40,6 +40,7 @@ const Posts = () => {
 
     return selectedPost ? (
       <div className="posts_comments">
+        <button onClick={goBack}>Go back</button>
         <div className="posts_container --commentPost">
           <h2 className="posts_container_title">{res.title}</h2>
           <span className="posts_container_body">{res.body}</span>
