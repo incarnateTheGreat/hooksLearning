@@ -6,8 +6,11 @@
 @import "./components/Posts";
 @import "./components/UserForm";
 
-.app {
+body {
   background: #e8e8e8;
+}
+
+.app {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -27,6 +30,10 @@
     left: 50%;
     position: absolute;
     top: 50%;
+  }
+
+  .view-container {
+    padding: 10px 0 0;
   }
 }
 

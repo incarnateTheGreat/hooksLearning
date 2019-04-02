@@ -111,7 +111,7 @@ const Posts = () => {
   };
 
   return (
-    <div className="posts">
+    <div className="posts view-container">
       {comments.length > 0 ? <DisplayComments /> : <DisplayPosts />}
     </div>
   );

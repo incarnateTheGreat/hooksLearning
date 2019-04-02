@@ -58,7 +58,7 @@ const Details = () => {
 
   // Show Edit User Mode if the Edit User has been found and set. Otherwise, display the Add Form.
   return (
-    <div className="details">
+    <div className="details view-container">
       <>{editUser === null ? <AddUser /> : <EditUser />}</>
     </div>
   );
