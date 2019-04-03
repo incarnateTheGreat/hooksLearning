@@ -29,11 +29,21 @@ export const initUserList: IUser[] = [
 ];
 
 export const languages: object = {
-  en: "English",
-  es: "Español"
+  en: {
+    name: "English"
+  },
+  es: {
+    name: "Español"
+  }
 };
 
 export const views: object = {
-  posts: "Posts",
-  users: "Users"
+  posts: {
+    link: "/posts",
+    name: "Posts"
+  },
+  users: {
+    link: "/",
+    name: "Users"
+  }
 };

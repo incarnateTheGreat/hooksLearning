@@ -1,16 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
+import { withRouter } from "react-router";
 import { RotateLoader } from "react-spinners";
+import Main from "./Main";
 
-// Add router
+// Services
+import getPostsData from "./services/getPostsData.service";
 
 // Reducers
 import UserReducer from "./reducers/user.reducer";
 
 // Components
-import Details from "./components/Details";
 import Dropdown from "./components/Dropdown";
-import Posts from "./components/Posts";
 
 // Context
 import FormContext from "./context/form-context";
@@ -68,24 +69,7 @@ const App = () => {
 
   // Get Posts Data
   useEffect(() => {
-    async function getPostsData() {
-      const instance = axios.create();
-      instance.defaults.timeout = 2500;
-
-      setIsLoading(true);
-
-      await instance
-        .get("https://jsonplaceholder.typicode.com/posts")
-        .then(data => {
-          setPosts(data.data);
-          setIsLoading(false);
-        })
-        .catch(error => {
-          setIsLoading(false);
-        });
-    }
-
-    getPostsData();
+    getPostsData(setIsLoading, setPosts);
   }, []);
 
   const RenderPage = () => {
@@ -96,19 +80,7 @@ const App = () => {
             {SelectLocaleMemo} {SelectViewMemo}
           </nav>
         </header>
-        {view === "users" ? (
-          <>
-            <h2>{addUser}</h2>
-            {DetailsMemo}
-          </>
-        ) : (
-          view === "posts" && (
-            <>
-              <h2>Posts</h2>
-              {PostsMemo}
-            </>
-          )
-        )}
+        <Main />
       </>
     );
   };
@@ -161,8 +133,6 @@ const App = () => {
   };
 
   // Memoize-ing Components.
-  const DetailsMemo = useMemo(() => <Details />, [users]);
-  const PostsMemo = useMemo(() => <Posts />, [posts]);
   const SelectLocaleMemo = useMemo(
     () => (
       <Dropdown
@@ -184,6 +154,7 @@ const App = () => {
         displayText={displayView}
         dropdownValues={views}
         dropdownValue={view}
+        isNavigation={true}
         setDropdownValue={setView}
       />
     ),
@@ -207,7 +178,7 @@ const App = () => {
   );
 };
 
-export default App;
+export default withRouter(App);
 
 /*
 

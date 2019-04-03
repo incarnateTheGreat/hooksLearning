@@ -36,6 +36,7 @@ export interface IDropdown {
   displayText: string;
   dropdownValue: string;
   dropdownValues: object;
+  isNavigation?: boolean;
   setDropdownValue: (e) => {};
 }
 

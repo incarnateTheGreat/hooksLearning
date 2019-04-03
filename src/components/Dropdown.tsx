@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 // Interfaces
 import { IDropdown } from "../interfaces/form.interface";
@@ -11,6 +12,7 @@ const Dropdown = props => {
     displayText,
     dropdownValue,
     dropdownValues,
+    isNavigation,
     setDropdownValue
   }: IDropdown = props;
 
@@ -40,6 +42,13 @@ const Dropdown = props => {
     return [
       "dropdown_contents_item",
       key === dropdownValue ? "--selected" : ""
+    ].join(" ");
+  };
+
+  const selectedNavClassNames = link => {
+    return [
+      "dropdown_contents_item",
+      link === location.pathname ? "--selected" : ""
     ].join(" ");
   };
 
@@ -78,19 +87,34 @@ const Dropdown = props => {
         </button>
       </div>
       <div className="dropdown_contents">
-        {dropdownValuesArr.length > 0 &&
-          dropdownValuesArr.map(key => {
-            return (
-              <span
-                className={selectedClassNames(key)}
-                data-value={key}
-                key={key}
-                onClick={ChangeValue}
-              >
-                {dropdownValues[key]}
-              </span>
-            );
-          })}
+        {isNavigation && dropdownValuesArr.length > 0
+          ? dropdownValuesArr.map(key => {
+              return (
+                <NavLink
+                  className="dropdown_contents_item"
+                  activeClassName={selectedNavClassNames(
+                    dropdownValues[key].link
+                  )}
+                  data-value={key}
+                  key={key}
+                  to={dropdownValues[key].link}
+                >
+                  {dropdownValues[key].name}
+                </NavLink>
+              );
+            })
+          : dropdownValuesArr.map(key => {
+              return (
+                <span
+                  className={selectedClassNames(key)}
+                  data-value={key}
+                  key={key}
+                  onClick={ChangeValue}
+                >
+                  {dropdownValues[key].name}
+                </span>
+              );
+            })}
       </div>
     </div>
   );
