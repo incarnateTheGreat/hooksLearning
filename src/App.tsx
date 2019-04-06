@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { withRouter } from "react-router";
 import { RotateLoader } from "react-spinners";
