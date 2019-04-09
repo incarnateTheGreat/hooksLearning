@@ -217,7 +217,7 @@ export default class App extends Component<{}, IAppState> {
       addNewUser_button: "",
       addUser: "",
       email: "",
-      toggleMode_button: "",
+      button: "",
       header: "",
       name: "",
       occupation: "",

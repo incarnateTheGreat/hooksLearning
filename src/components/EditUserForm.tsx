@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import FormContext from "../context/form-context";
 
 const EditUserForm = props => {
+  const user_id = props.location.state.user.id;
+  const user_name = props.location.state.user.name;
+  const user_occupation = props.location.state.user.occupation;
+
   const initialFormState = {
     id: null,
     name: "",
@@ -21,27 +25,25 @@ const EditUserForm = props => {
       type: "update"
     });
 
-    toggleMode_func();
+    props.history.goBack();
   };
 
   const deleteUserFunc = () => {
     dispatch({
-      payload: user.id,
+      payload: user_id,
       type: "delete"
     });
 
-    toggleMode_func();
+    props.history.goBack();
   };
 
   // Testing Context necessity.
-  const { appContext, dispatch, toggleMode_func }: any = useContext(
-    FormContext
-  );
+  const { appContext, dispatch }: any = useContext(FormContext);
   const { name, occupation } = appContext;
 
   // Check to toggle Edit User Button.
   useEffect(() => {
-    setUser({ id: props.id, name: props.name, occupation: props.occupation });
+    setUser({ id: user_id, name: user_name, occupation: user_occupation });
   }, []);
 
   return (
