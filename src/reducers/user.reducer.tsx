@@ -1,12 +1,3 @@
-// Interfaces
-import { IUser } from "../interfaces/form.interface";
-
-export const initialState: IUser = {
-  id: 0,
-  name: "",
-  occupation: ""
-};
-
 const UserReducer = (state, action) => {
   switch (action.type) {
     case "add": {
@@ -22,7 +13,7 @@ const UserReducer = (state, action) => {
       return state;
     }
     default:
-      throw new Error("Unexpected action");
+      return state;
   }
 };
 

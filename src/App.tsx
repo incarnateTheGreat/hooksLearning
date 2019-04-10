@@ -1,12 +1,21 @@
-import React, { useEffect, useMemo, useReducer, useState } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState
+} from "react";
 import { withRouter } from "react-router";
 import { RotateLoader } from "react-spinners";
+import Toast from "./components/Toast";
 import Main from "./Main";
 
 // Services
 import getPostsData from "./services/getPostsData.service";
 
 // Reducers
+import ToastReducer from "./reducers/toast.reducer";
 import UserReducer from "./reducers/user.reducer";
 
 // Components
@@ -65,6 +74,7 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [users, dispatch] = useReducer(UserReducer, initUserList);
+  const [toastStatus, dispatchToast] = useReducer(ToastReducer, undefined);
 
   // Get Posts Data
   useEffect(() => {
@@ -80,6 +90,7 @@ const App = () => {
           </nav>
         </header>
         <Main />
+        <Toast />
       </>
     );
   };
@@ -124,8 +135,10 @@ const App = () => {
   const values: ProviderStoreInterface = {
     appContext,
     dispatch,
+    dispatchToast,
     posts,
     setView,
+    toastStatus,
     usersContext: users,
     view,
     views

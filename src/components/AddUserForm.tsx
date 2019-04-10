@@ -5,12 +5,13 @@ const AddUserForm = () => {
   const generateKey = () => Math.floor(Math.random() * (10000 - 0 + 1)) + 0;
 
   const initialFormState = {
-    disabled: true,
+    // disabled: true,
     id: generateKey(),
     name: "",
     occupation: ""
   };
   const [user, setUser] = useState(initialFormState);
+  const [disabled, setDisabled] = useState(true);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -20,16 +21,14 @@ const AddUserForm = () => {
 
   const toggleSubmitButton = nameObj => {
     const { name, occupation } = nameObj;
-    let { disabled } = nameObj;
 
     if (name === "" || occupation === "") {
-      disabled = true;
+      setDisabled(true);
     } else if (name !== "" && occupation !== "") {
-      disabled = false;
+      setDisabled(false);
     }
 
-    // return disabled;
-    setUser({ ...user, disabled });
+    setUser({ ...user });
   };
 
   const handleSubmit = submitUser => () => {
@@ -39,11 +38,16 @@ const AddUserForm = () => {
 
     dispatch({ type: "add", payload: submitUser });
 
+    dispatchToast({ type: "showToast" });
+
+    setTimeout(() => {
+      dispatchToast({ type: "hideToast" });
+    }, 3000);
+
     setUser(initialFormState);
   };
 
-  // Testing Context necessity.
-  const { appContext, dispatch }: any = useContext(FormContext);
+  const { appContext, dispatch, dispatchToast }: any = useContext(FormContext);
   const { addNewUser_button, name, occupation } = appContext;
 
   // Check to toggle Add New User Button.
@@ -77,7 +81,7 @@ const AddUserForm = () => {
         <button
           title={addNewUser_button}
           className="username-form_buttons_submit"
-          disabled={user.disabled}
+          disabled={disabled}
           onClick={handleSubmit(user)}
         >
           {addNewUser_button}

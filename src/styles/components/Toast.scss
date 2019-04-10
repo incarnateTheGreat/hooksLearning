@@ -1,0 +1,72 @@
+.Toast {
+  align-items: center;
+  align-self: center;
+  background-color: #dadada;
+  border-radius: 5px;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  padding: 0 5px;
+  position: fixed;
+  width: 20%;
+  visibility: hidden;
+
+  &.--show {
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    visibility: visible;
+  }
+
+  &_close-container {
+    align-self: flex-end;
+    display: flex;
+  }
+
+  &_content-container {
+    &_Icon {
+    }
+
+    &_Status {
+    }
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@media only screen and (max-width: 1040px) {
+  .Toast {
+    width: 30%;
+  }
+}
+
+@media only screen and (max-width: 830px) {
+  .Toast {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .Toast {
+    width: 90%;
+  }
+}
