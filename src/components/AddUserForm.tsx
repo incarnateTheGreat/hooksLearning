@@ -5,7 +5,6 @@ const AddUserForm = () => {
   const generateKey = () => Math.floor(Math.random() * (10000 - 0 + 1)) + 0;
 
   const initialFormState = {
-    // disabled: true,
     id: generateKey(),
     name: "",
     occupation: ""

@@ -25,6 +25,12 @@ const EditUserForm = props => {
       type: "update"
     });
 
+    dispatchToast({ type: "showToast" });
+
+    setTimeout(() => {
+      dispatchToast({ type: "hideToast" });
+    }, 3000);
+
     props.history.goBack();
   };
 
@@ -34,11 +40,17 @@ const EditUserForm = props => {
       type: "delete"
     });
 
+    dispatchToast({ type: "showToast" });
+
+    setTimeout(() => {
+      dispatchToast({ type: "hideToast" });
+    }, 3000);
+
     props.history.goBack();
   };
 
   // Testing Context necessity.
-  const { appContext, dispatch }: any = useContext(FormContext);
+  const { appContext, dispatch, dispatchToast }: any = useContext(FormContext);
   const { name, occupation } = appContext;
 
   // Check to toggle Edit User Button.
