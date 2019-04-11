@@ -78,6 +78,7 @@ const App = () => {
     return (
       <>
         <header>
+          <h1 className="header-title">React Hooks Page</h1>
           <nav>
             {SelectLocaleMemo} {SelectViewMemo}
           </nav>

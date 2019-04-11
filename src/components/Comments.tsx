@@ -22,13 +22,32 @@ const DisplayComment = comment => {
   );
 };
 
+const DisplayComments = comments => {
+  return comments.map(comment => {
+    return (
+      <DisplayComment key={`${comment.id}-${comment.postId}`} {...comment} />
+    );
+  });
+};
+
+const DisplayPostTitle = original_post => {
+  return (
+    original_post.title !== "" && (
+      <>
+        <div className="posts_container --commentPost">
+          <h2 className="posts_container_title">{original_post.title}</h2>
+          <span className="posts_container_body">{original_post.body}</span>
+        </div>
+      </>
+    )
+  );
+};
+
 const Comments = props => {
   const { match, location } = props;
   const [comments, setComments] = useState<Comments[]>([]);
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
   const [isLoadingComments, setIsLoadingComments] = useState(true);
-
-  // TODO: Use a Suspense to prevent the "no-data" messag from showing on render.
 
   const goBack = () => {
     props.history.goBack();
@@ -58,25 +77,12 @@ const Comments = props => {
         </div>
       ) : (
         <>
-          {original_post.title !== "" && (
-            <>
-              <button onClick={goBack}>Go back</button>
-              <div className="posts_container --commentPost">
-                <h2 className="posts_container_title">{original_post.title}</h2>
-                <span className="posts_container_body">
-                  {original_post.body}
-                </span>
-              </div>
-            </>
-          )}
-          {comments.map(comment => {
-            return (
-              <DisplayComment
-                key={`${comment.id}-${comment.postId}`}
-                {...comment}
-              />
-            );
-          })}
+          <button onClick={goBack}>Go back</button>
+          <div className="posts_comments_inner-container">
+            {DisplayPostTitle(original_post)}
+            {DisplayComments(comments)}
+          </div>
+
           <button onClick={goBack}>Go back</button>
         </>
       )}

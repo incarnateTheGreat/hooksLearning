@@ -10,15 +10,20 @@
     flex-direction: column;
     flex: 0 1 20%;
     margin: 0 0 20px;
-    padding: 15px 20px;
-
-    &.--commentPost {
-      padding: 20px;
-    }
+    padding: 24px 20px;
 
     &_title {
       margin: 0;
       padding: 0 0 10px;
+    }
+
+    &.--commentPost {
+      margin: 20px calc(-50vw + 50%) 0;
+      padding: 10px calc(-33vw + 50%) 20px;
+
+      .posts_container_title {
+        font-size: 3em;
+      }
     }
 
     &_body {
@@ -41,6 +46,10 @@
   }
 
   &_comments {
+    &_inner-container {
+      margin: 10px 0;
+    }
+
     &_row {
       padding: 10px 15px 5px;
 
@@ -59,6 +68,11 @@
   .posts {
     &_container {
       flex: 0 1 18%;
+
+      // &.--commentPost {
+      //   padding: 24px;
+      //   // padding: 10px calc(-40vw + 50%) 20px;
+      // }
     }
   }
 }
@@ -67,6 +81,11 @@
   .posts {
     &_container {
       flex: 0 1 18%;
+
+      &.--commentPost {
+        padding: 24px;
+        // padding: 10px calc(-40vw + 50%) 20px;
+      }
     }
   }
 }
@@ -83,6 +102,11 @@
   .posts {
     &_container {
       flex: 0 1 100%;
+
+      // &.--commentPost {
+      //   padding: 24px;
+      //   // padding: 10px calc(-40vw + 50%) 20px;
+      // }
     }
   }
 }
