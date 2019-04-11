@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import ToastSequence from "../actions/toast.actions";
 import FormContext from "../context/form-context";
 
 const EditUserForm = props => {
@@ -25,11 +26,7 @@ const EditUserForm = props => {
       type: "update"
     });
 
-    dispatchToast({ type: "showToast" });
-
-    setTimeout(() => {
-      dispatchToast({ type: "hideToast" });
-    }, 3000);
+    ToastSequence(dispatchToast, "success");
 
     props.history.goBack();
   };
@@ -40,11 +37,7 @@ const EditUserForm = props => {
       type: "delete"
     });
 
-    dispatchToast({ type: "showToast" });
-
-    setTimeout(() => {
-      dispatchToast({ type: "hideToast" });
-    }, 3000);
+    ToastSequence(dispatchToast, "success");
 
     props.history.goBack();
   };

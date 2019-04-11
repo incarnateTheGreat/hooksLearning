@@ -4,6 +4,7 @@ import FormContext from "../context/form-context";
 const Toast = () => {
   const { toastStatus } = useContext(FormContext);
   const [toastState, setToastState] = useState(null);
+  const { showToast, type } = toastStatus;
 
   let selectedClassNames = null;
 
@@ -12,13 +13,9 @@ const Toast = () => {
 	and then use that to render the correct class.
 	*/
   useEffect(() => {
-    selectedClassNames = ["Toast", toastStatus ? "--show" : ""]
+    selectedClassNames = ["Toast", showToast ? `--show --${type}` : ""]
       .join(" ")
       .trim();
-
-    if (toastStatus === false) {
-      selectedClassNames = [selectedClassNames, "--hide"].join(" ").trim();
-    }
 
     setToastState(selectedClassNames);
   });
@@ -27,7 +24,7 @@ const Toast = () => {
   selectedClassNames = toastState ? toastState : "Toast";
 
   return (
-    <div className={selectedClassNames} key="1">
+    <div className={selectedClassNames}>
       <div className="Toast_close-container">x</div>
       <div className="Toast_content-container">
         <i className="Toast_content-container_icon">image</i>

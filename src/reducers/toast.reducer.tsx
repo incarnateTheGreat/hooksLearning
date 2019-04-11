@@ -1,11 +1,15 @@
 const ToastReducer = (state, action) => {
   switch (action.type) {
-    case "showToast": {
-      const newState = true;
+    case "showSuccessToast": {
+      const newState = action.payload;
+      return newState;
+    }
+    case "showErrorToast": {
+      const newState = action.payload;
       return newState;
     }
     case "hideToast": {
-      const newState = false;
+      const newState = action.payload;
       return newState;
     }
     default:

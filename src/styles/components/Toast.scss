@@ -1,20 +1,29 @@
 .Toast {
-  align-items: center;
+  align-items: flex-start;
   align-self: center;
   background-color: #dadada;
   border-radius: 5px;
-  bottom: 30px;
+  // bottom: 30px;
   display: flex;
   flex-direction: column;
   height: 50px;
-  padding: 0 5px;
+  padding: 16px;
   position: fixed;
+  top: 40%;
   width: 20%;
   visibility: hidden;
 
   &.--show {
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
     visibility: visible;
+  }
+
+  &.--success {
+    background-color: #b0d5f6;
+  }
+
+  &.--error {
+    background-color: #ef9b9b;
   }
 
   &_close-container {
@@ -33,22 +42,26 @@
 
 @keyframes fadein {
   from {
-    bottom: 0;
+    // bottom: 0;
+    top: 38%;
     opacity: 0;
   }
   to {
-    bottom: 30px;
+    // bottom: 30px;
+    top: 40%;
     opacity: 1;
   }
 }
 
 @keyframes fadeout {
   from {
-    bottom: 30px;
+    // bottom: 30px;
+    top: 40%;
     opacity: 1;
   }
   to {
-    bottom: 0;
+    // bottom: 0;
+    top: 38%;
     opacity: 0;
   }
 }

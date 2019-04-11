@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import ToastSequence from "../actions/toast.actions";
 import FormContext from "../context/form-context";
 
 const AddUserForm = () => {
@@ -37,11 +38,7 @@ const AddUserForm = () => {
 
     dispatch({ type: "add", payload: submitUser });
 
-    dispatchToast({ type: "showToast" });
-
-    setTimeout(() => {
-      dispatchToast({ type: "hideToast" });
-    }, 3000);
+    ToastSequence(dispatchToast, "success");
 
     setUser(initialFormState);
   };

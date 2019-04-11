@@ -1,4 +1,4 @@
-import { IUser } from "../interfaces/form.interface";
+import { IToast, IUser } from "../interfaces/form.interface";
 
 export const initUserList: IUser[] = [
   {
@@ -27,6 +27,11 @@ export const initUserList: IUser[] = [
     occupation: "Miau"
   }
 ];
+
+export const toastDefault: IToast = {
+  showToast: false,
+  type: ""
+};
 
 export const languages: object = {
   en: {

@@ -1,11 +1,4 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useMemo,
-  useReducer,
-  useRef,
-  useState
-} from "react";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { withRouter } from "react-router";
 import { RotateLoader } from "react-spinners";
 import Toast from "./components/Toast";
@@ -38,7 +31,7 @@ import {
 } from "./interfaces/form.interface";
 
 // Data
-import { initUserList, languages, views } from "./data/data";
+import { initUserList, languages, toastDefault, views } from "./data/data";
 
 const getLocaleData = locale => {
   let res: AppContextInterface = {
@@ -74,7 +67,7 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [users, dispatch] = useReducer(UserReducer, initUserList);
-  const [toastStatus, dispatchToast] = useReducer(ToastReducer, undefined);
+  const [toastStatus, dispatchToast] = useReducer(ToastReducer, toastDefault);
 
   // Get Posts Data
   useEffect(() => {

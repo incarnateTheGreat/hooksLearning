@@ -30,10 +30,6 @@ export interface IUser {
   occupation: string;
 }
 
-export interface IToast {
-  isToastShowing: boolean;
-}
-
 export interface IDropdown {
   alignment?: string;
   buttonDisplayText: string;
@@ -44,13 +40,18 @@ export interface IDropdown {
   setDropdownValue: (e) => {};
 }
 
+export interface IToast {
+  showToast: boolean;
+  type: string;
+}
+
 export interface ProviderStoreInterface {
   appContext: object;
   dispatch: object;
   dispatchToast: object;
   posts: object | [];
   setView: object;
-  toastStatus: boolean;
+  toastStatus: IToast;
   usersContext: object[];
   view: string;
   views: object;
